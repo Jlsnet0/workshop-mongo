@@ -2,6 +2,7 @@ package org.josneto.workoshopmongo.config;
 
 import org.josneto.workoshopmongo.domain.Post;
 import org.josneto.workoshopmongo.domain.User;
+import org.josneto.workoshopmongo.dto.AuthorDTO;
 import org.josneto.workoshopmongo.repository.PostRepository;
 import org.josneto.workoshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,11 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post p1 = new Post(null, LocalDate.parse("21/03/2026", dtf), "Partiu viagem", "Vou viajar para João Pessoa, abraços", maria);
-        Post p2 = new Post(null, LocalDate.parse("23/03/2026", dtf), "Bom dia", "Acordei feliz hoje", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post p1 = new Post(null, LocalDate.parse("21/03/2026", dtf), "Partiu viagem", "Vou viajar para João Pessoa, abraços", new AuthorDTO(maria));
+        Post p2 = new Post(null, LocalDate.parse("23/03/2026", dtf), "Bom dia", "Acordei feliz hoje", new AuthorDTO(maria));
+
         postRepository.saveAll(Arrays.asList(p1, p2));
     }
 }
