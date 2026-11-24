@@ -3,6 +3,7 @@ package org.josneto.workoshopmongo.config;
 import org.josneto.workoshopmongo.domain.Post;
 import org.josneto.workoshopmongo.domain.User;
 import org.josneto.workoshopmongo.dto.AuthorDTO;
+import org.josneto.workoshopmongo.dto.CommentDTO;
 import org.josneto.workoshopmongo.repository.PostRepository;
 import org.josneto.workoshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
@@ -42,6 +44,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post p1 = new Post(null, LocalDate.parse("21/03/2026", dtf), "Partiu viagem", "Vou viajar para João Pessoa, abraços", new AuthorDTO(maria));
         Post p2 = new Post(null, LocalDate.parse("23/03/2026", dtf), "Bom dia", "Acordei feliz hoje", new AuthorDTO(maria));
+
+        CommentDTO c1 = new CommentDTO("Boa viagem, mano!", LocalDate.parse("21/03/2026", dtf), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite!", LocalDate.parse("22/03/2026", dtf), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", LocalDate.parse("23/03/2026", dtf), new AuthorDTO(alex));
+
+        p1.getComments().addAll(Arrays.asList(c1,c2));
+        p2.getComments().add(c3);
 
         postRepository.saveAll(Arrays.asList(p1, p2));
 
